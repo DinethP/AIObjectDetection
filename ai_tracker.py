@@ -33,7 +33,7 @@ while True:
   # detect cars & pedestrians in each frame
   cars = car_tracker.detectMultiScale(grayscaled_frame)
   pedestrians = pedestrian_tracker.detectMultiScale(grayscaled_frame)
-
+  faces = face_tracker.detectMultiScale(grayscaled_frame)
 
 
   # draw rectangles around cars(coordinates, colour, thickness)
@@ -44,7 +44,8 @@ while True:
   for (x, y, w, h) in pedestrians:
     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 2)
 
-
+  for (x, y, w, h) in faces:
+    cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 2)
 
 
   # Display the fram (only shows for a split second)
