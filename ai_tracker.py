@@ -9,6 +9,8 @@ video = cv2.VideoCapture('video2.mp4')
 
 # Our pre-trained car & pedestrian haar features
 car_tracker_features = 'car_detector.xml'
+pedestrian_tracker_features = 'haarcascade_fullbody.xml'
+face_cascade = 'haarcascade_frontalface_default.xml'
 
 # create car classifier
 car_tracker = cv2.CascadeClassifier(car_tracker_features)
@@ -30,10 +32,20 @@ while True:
 
   # detect cars & pedestrians in each frame
   cars = car_tracker.detectMultiScale(grayscaled_frame)
+  pedestrians = pedestrian_tracker.detectMultiScale(grayscaled_frame)
+
+
 
   # draw rectangles around cars(coordinates, colour, thickness)
   for (x, y, w, h) in cars:
     cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
+  # draw rectangles around pedestrians(coordinates, colour, thickness)
+  for (x, y, w, h) in pedestrians:
+    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 2)
+
+
+
 
   # Display the fram (only shows for a split second)
   cv2.imshow("Car Detector", frame)
